@@ -1,0 +1,13 @@
+# Ignore local Terraform directories
+.terraform/
+
+# Ignore state files (we will use remote backends later)
+*.tfstate
+*.tfstate.*
+
+# Ignore sensitive variables files if you create them
+*.tfvars
+*.tfvars.json
+
+# Allow documentation images
+!images/
