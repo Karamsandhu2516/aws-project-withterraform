@@ -26,6 +26,18 @@ The design pattern isolates each tier into distinct subnets across multiple Avai
 * **HCL Concepts:** `count` meta-arguments, dynamic data sources (`aws_availability_zones`), explicit dependencies (`depends_on`), and input variable abstraction.
 
 ---
+---
+
+## 🔍 Deployment Verification
+
+### 1. Networking Tier (VPC Resource Map)
+The AWS Console confirms the successful automatic generation of our highly available 3-tier VPC network infrastructure across isolated subnets:
+![VPC Verification](images/vpc-verification.png)
+
+### 2. Database Tier (Amazon RDS MySQL)
+The relational database instance is deployed in a healthy state and bound to our private data subnet parameters:
+![RDS Verification](images/rds-verification.png)
+
 
 ##  How to Deploy This Infrastructure
 
