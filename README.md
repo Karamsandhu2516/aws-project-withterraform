@@ -46,13 +46,34 @@ The relational database instance is deployed in a healthy state and bound to our
 
 ##  How to Deploy This Infrastructure
 
-### 1. Prerequisites
-* [Terraform CLI](https://developer.hashicorp.com/terraform/install) installed locally (v1.15.x+).
-* [AWS CLI](https://aws.amazon.com/cli/) configured with valid IAM administrative credentials.
+## CI/CD Automation Pipeline
 
-### 2. Deployment Steps
-Clone the repository and initialize the working directory:
+This repository utilizes an automated **GitHub Actions CI Pipeline** (`.github/workflows/terraform-ci.yml`) to enforce code quality, syntax validation, and dry-run infrastructure planning before code deployment.
+
+### Automated Checks Performed:
+1. **Source Code Checkout:** Clones the active workspace onto an isolated `ubuntu-latest` cloud runner environment.
+2. **Terraform CLI Engine Initialization:** Dynamically bootstraps and configures the standard HashiCorp Terraform runtime workspace.
+3. **Automated Code Formatting (`terraform fmt`):** Validates and enforces consistent programmatic layout constraints across configuration code assets.
+4. **Syntactical Code Validation (`terraform validate`):** Validates declaration integrity, parameters, and variable references before remote API execution.
+5. **AWS Workspace Handshake (`terraform init`):** Securely logs into AWS utilizing repository-level encrypted secret tokens to fetch platform provider plugin components.
+6. **Infrastructure Predictive Planning (`terraform plan`):** Generates structural layout plans mapping upcoming cloud lifecycle changes live to the GitHub interface logs.
+
+## 🛠️ Local Development Quickstart
+
+### Prerequisites
+- Terraform CLI (v1.5.0+) Installed locally
+- AWS CLI configured with active IAM programmatic credentials
+
+### Execution Cycle
 ```bash
-git clone [https://github.com/YOUR_GITHUB_USERNAME/aws-3-tier-project.git](https://github.com/YOUR_GITHUB_USERNAME/aws-3-tier-project.git)
-cd aws-3-tier-project
+# Initialize working directory and pull plugins
 terraform init
+
+# Validate configuration syntax integrity
+terraform validate
+
+# Review structural deployment blueprints
+terraform plan
+
+# Deploy infrastructure assets live to AWS
+terraform apply --auto-approve
