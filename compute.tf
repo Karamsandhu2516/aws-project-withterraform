@@ -1,19 +1,19 @@
 data "aws_ami" "simple_linux" {
   most_recent = true
   owners      = ["amazon"]
-  
+
   filter {
     name   = "name"
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
-}  
+}
 resource "aws_lb" "simple_alb" {
   name               = "simple-3tier-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  
-  subnets            = [aws_subnet.public[0].id, aws_subnet.public[1].id]
+
+  subnets = [aws_subnet.public[0].id, aws_subnet.public[1].id]
 
   tags = {
     Name = "simple-alb"
@@ -60,13 +60,13 @@ resource "aws_launch_template" "simple_template" {
 }
 
 resource "aws_autoscaling_group" "simple_asg" {
-  name                = "simple-app-asg"
-  desired_capacity    = 1
-  min_size            = 1
-  max_size            = 1
-  
+  name             = "simple-app-asg"
+  desired_capacity = 1
+  min_size         = 1
+  max_size         = 1
+
   target_group_arns   = [aws_lb_target_group.simple_tg.arn]
-  vpc_zone_identifier = [aws_subnet.private_app[0].id] 
+  vpc_zone_identifier = [aws_subnet.private_app[0].id]
 
   launch_template {
     id      = aws_launch_template.simple_template.id
