@@ -32,7 +32,12 @@ The design pattern isolates each tier into distinct subnets across multiple Avai
 
 ### 1. Networking Tier (VPC Resource Map)
 The AWS Console confirms the successful automatic generation of our highly available 3-tier VPC network infrastructure across isolated subnets:
+![VPC Verification](images/EC2-verification.png)
 ![VPC Verification](images/vpc-verification.png)
+![VPC Verification](images/LB-verification.png)
+![VPC Verification](images/ASG-verification.png)
+
+
 
 ### 2. Database Tier (Amazon RDS MySQL)
 The relational database instance is deployed in a healthy state and bound to our private data subnet parameters:
