@@ -5,7 +5,6 @@ on:
     branches:
       - main  
 
-
 jobs:
   terraform-checks:
     name: "Run Automated Infrastructure Validation"
@@ -23,15 +22,17 @@ jobs:
       - name: Verify Code Formatting
         run: terraform fmt -check
 
-      - name: Validate Code Syntax
-        run: terraform validate
-
+      
       - name: Initialize Workspace
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-1
         run: terraform init
+
+      
+      - name: Validate Code Syntax
+        run: terraform validate
 
       - name: Generate Infrastructure Plan
         env:
