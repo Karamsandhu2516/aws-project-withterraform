@@ -10,6 +10,23 @@ The design pattern isolates each tier into distinct subnets across multiple Avai
 * **Application Tier:** Private subnets containing a dynamic EC2 Auto Scaling Group (ASG) protected from direct public access.
 * **Data Tier:** Fully isolated private subnets hosting a Multi-AZ Amazon RDS MySQL cluster.
 
+## 🔒 Remote State Management & Locking
+
+To support team collaboration and prevent state corruption in CI/CD environments, this project uses a remote Terraform backend:
+- **Amazon S3:** Stores the `terraform.tfstate` file centrally with encryption enabled (`encrypt = true`).
+- **Amazon DynamoDB:** Handles atomic state locking to prevent concurrent deployment runs from corrupting state data.
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "your-terraform-state-bucket"
+    key            = "3-tier-project/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-locks"
+    encrypt        = true
+  }
+}
+
 ---
 
 ## Architecture Diagram
