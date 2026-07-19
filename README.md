@@ -10,6 +10,14 @@ The design pattern isolates each tier into distinct subnets across multiple Avai
 * **Application Tier:** Private subnets containing a dynamic EC2 Auto Scaling Group (ASG) protected from direct public access.
 * **Data Tier:** Fully isolated private subnets hosting a Multi-AZ Amazon RDS MySQL cluster.
 
+## 🏗️ Architecture Overview
+
+This architecture separates infrastructure layers into three isolated tiers across multiple Availability Zones to ensure high availability, fault tolerance, and security.
+
+- **Presentation Tier:** An internet-facing Application Load Balancer (ALB) distributed across Public Subnets to securely route external user traffic.
+- **Application Tier:** A self-healing Auto Scaling Group (ASG) maintaining instances inside Private App Subnets, driven by an AWS Launch Template configuration blueprint.
+- **Data Tier:** Isolated Private Data Subnets designed to host a secure Amazon RDS database cluster.
+
 ## 🔒 Remote State Management & Locking
 
 To support team collaboration and prevent state corruption in CI/CD environments, this project uses a remote Terraform backend:
@@ -26,6 +34,8 @@ terraform {
     encrypt        = true
   }
 }
+
+
 
 ---
 
@@ -51,7 +61,6 @@ terraform {
 The AWS Console confirms the successful automatic generation of our highly available 3-tier VPC network infrastructure across isolated subnets:
 ![VPC Verification](images/EC2-varification.png)
 ![VPC Verification](images/vpc-verification.png)
-![VPC Verification](images/LB-verification.png)
 ![VPC Verification](images/ASG-verification.png)
 
 
