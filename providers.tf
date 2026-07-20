@@ -7,16 +7,15 @@ terraform {
     }
   }
 
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket-karam"
+    key            = "3-tier-project/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-state-locks"
+    encrypt        = true
+  }
+}
 
 provider "aws" {
   region = var.aws_region
-}
-
-backend "s3" {
-    bucket         = "my-terraform-state-bucket-karam" 
-    key            = "3-tier-project/terraform.tfstate" 
-    region         = "us-east-1"
-    dynamodb_table = "terraform-state-locks"            
-    encrypt        = true                               
-  }
 }
